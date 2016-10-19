@@ -68,6 +68,8 @@ class Project_uploader extends CI_Controller {
 //        print_r($data);
 //        print_r($_FILES);
 //        exit();
+        if(!empty($data['card_image']))
+        {
         $config['upload_path'] = './images/card_image';
         $config['allowed_types'] = 'gif|jpg|png';
         $config['max_size'] = '10000';
@@ -88,8 +90,14 @@ class Project_uploader extends CI_Controller {
 //              exit();
             $data['card_image'] = 'images/card_image/' . $udata['upload_data']['file_name'];
             $this->p_u_model->save_project_basics_info($data, $project_id);
-            redirect('project_uploader/upload_project_story');
         }
+    }
+        else{
+
+           $this->p_u_model->save_project_basics_info($data, $project_id);
+        }
+         redirect('project_uploader/upload_project_story');
+        
     }
 
     public function upload_project_story() {
@@ -255,8 +263,12 @@ class Project_uploader extends CI_Controller {
         //Photo upload
         //$data['card_image'] = trim($data['card_image
         //exit();
-        //if($data['card_image']->name != '')
-        // {
+        echo '<pre>';
+        print_r($data);
+        print_r($_FILES);
+        exit();
+        if(!empty($data['card_image']['name']))
+         {
         $config['upload_path'] = './images/card_image';
         $config['allowed_types'] = 'gif|jpg|png';
         $config['max_size'] = '10000';
@@ -280,13 +292,16 @@ class Project_uploader extends CI_Controller {
         }
 
         $data['card_image'] = 'images/card_image/' . $udata['upload_data']['file_name'];
-        //}
-        //else
-        //{
-        //  $data['old_card_image'] =$data['card_image'];  //$this->u_model->select_card_image_by_project_id($project_id);   
-        //}
-
         $this->p_u_model->save_project_basics_info($data, $project_id);
+        }
+        else
+        {
+          // $data['old_card_image'] =$data['card_image']; 
+           //$this->u_model->select_card_image_by_project_id($project_id);
+           $this->p_u_model->save_project_basics_info($data, $project_id);   
+        }
+
+        
         redirect('project_uploader/edit_project_story');
     }
 

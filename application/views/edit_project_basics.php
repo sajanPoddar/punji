@@ -90,8 +90,8 @@ if (isset($exception)) {
                      </label>
                     -->
                     <label  class="custom-file-input">
-                        <input type="hidden" name="old_card_image" value="<?php echo $result->card_image; ?>"/>
-                        <input type="file" name="card_image" />
+                        
+                        <input type="file" name="card_image" >
                     </label>
 
 
